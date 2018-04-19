@@ -31,6 +31,9 @@
 		case 'POSTC':
 			 attemptPost();
 			 break;
+		case 'STARTSESSION':
+			attemptStartSession();
+			break;
 		default:
 			# code
 			break;
@@ -147,8 +150,7 @@
 	{
 		session_start();
 		session_destroy();
-		$response = "Session closed";
-		echo json_encode($response);
+		echo json_encode(array('success'=>'Session deleted')); 
 	}
 
 	function attemptIndex()
@@ -170,11 +172,31 @@
 		if(isset($_COOKIE["usernameWeb"]))
 		{
 			$response2 = $_COOKIE["usernameWeb"];
-			echo json_encode($response2);
+			echo json_encode(array("cookieUserName" => $_COOKIE["usernameWeb"]));
 		}
 		else
 		{
-			errorHandling("500");
+			errorHandling("411");
+		}
+	}
+
+	function attemptStartSession(){
+		$username = $_POST["username"];
+		$password = $_POST["password"];
+
+		$result = dbLogin($username, $password);
+
+		if($result["status"] == "SUCCESS"){
+
+			session_start();
+			$_SESSION["fName"]=$result["firstname"];
+			$_SESSION["lName"]=$result["lastname"];
+			$_SESSION["uName"]=$result["uName"];
+
+			echo json_encode(array('success'=>'Session started with new user'));
+		}
+		else{
+			errorHandling($result["status"]);
 		}
 	}
 
@@ -235,7 +257,10 @@
 				header("HTTP/1.1 500 Bad connection, portal down");
 				die("User already exists.");
 				break;
-
+			case '411':
+				header("HTTP/1.1 411 Cookie not set yet");
+				die("Cookie not set yet");
+				break;
 			case '543':
 				header("HTTP/1.1 500 Invalid password ");
 				die("Invalid password");
