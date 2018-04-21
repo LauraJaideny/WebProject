@@ -92,9 +92,9 @@
 		
 	}
 
-	function dbComment(){
+	function dbGetPosts(){
 		$connection = connectionToDB();
-		$sql = "SELECT * FROM users JOIN comments ON users.username = comments.username";
+		$sql = "SELECT * FROM users JOIN posts ON users.username = posts.username";
 	
 		$result = $connection->query($sql);
 
@@ -104,7 +104,7 @@
 	
 			while ($row = $result->fetch_assoc())
 			{
-				$currentRow = array("firstname"=>$row["fName"], "lastname"=>$row["lName"], "email"=>$row["email"], "comment"=>$row["Comment"]);
+				$currentRow = array("firstname"=>$row["fName"], "lastname"=>$row["lName"], "comment"=>$row["comment"], "postDate"=>$row["postDate"]);
 				array_push($response, $currentRow);
 			}
 
@@ -121,9 +121,8 @@
 	{
 		$connection = connectionToDB();
 
-		
 
-		$sql2 = "INSERT INTO Comments (Comment, username) VALUES ('$comment', '$uName')";
+		$sql2 = "INSERT INTO Posts (comment, username, postDATE) VALUES ('$comment', '$uName', CURRENT_DATE())";
 
 			if(mysqli_query($connection, $sql2))
 				{

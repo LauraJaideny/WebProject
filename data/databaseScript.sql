@@ -17,7 +17,7 @@ VALUES  ('Alfredo', 'Salazar', 'alfredo08', 'alfred90', 'alfred@gmail.com'),
 CREATE TABLE Posts (
     postID int NOT NULL AUTO_INCREMENT,
     username VARCHAR(50),
-    comment VARCHAR(200),
+    comment VARCHAR(2000),
     postDate DATE,
     PRIMARY KEY (postID),
     FOREIGN KEY (username) REFERENCES Users(username)
@@ -27,8 +27,21 @@ CREATE TABLE Replies (
     replyID int NOT NULL AUTO_INCREMENT,
     username VARCHAR(50),
     postID int,
-    reply VARCHAR(200),
+    reply VARCHAR(2000),
     PRIMARY KEY (replyID),
     FOREIGN KEY (username) REFERENCES Users(username),
     FOREIGN KEY (postID) REFERENCES Posts(postID)
 );
+
+/* INSERT INTO Posts(username, comment, postDate)
+VALUES  ('AdrianP94', 'HOLA SOY EL PRIMER POST XD', CURRENT_DATE());
+
+INSERT INTO Posts(username, comment, postDate)
+VALUES  ('AdrianP94', 'OTRO POST', CURRENT_DATE());
+
+INSERT INTO Posts(username, comment, postDate)
+VALUES  ('AdrianP94', 'TERCER POST', CURRENT_DATE());
+
+INSERT INTO Posts(username, comment, postDate)
+VALUES  ('AdrianP94', 'CUARTO POST', CURRENT_DATE());*/
+

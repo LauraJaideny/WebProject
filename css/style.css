@@ -111,6 +111,10 @@ input[type=text], input[type=password], input[type=email] {
     cursor: pointer;
 }
 
+.modal{
+	z-index: 2000;
+}
+
 
 
 

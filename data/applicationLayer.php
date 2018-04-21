@@ -25,10 +25,10 @@
 		case 'COOKIE':
 			 attemptCookie();
 			 break;
-		case 'COMMENT':
-			 attemptComment();
+		case 'GETPOSTS':
+			 attemptGetPosts();
 			 break;
-		case 'POSTC':
+		case 'POST':
 			 attemptPost();
 			 break;
 		case 'STARTSESSION':
@@ -200,9 +200,9 @@
 		}
 	}
 
-	function attemptComment()
+	function attemptGetPosts()
 	{
-		$result = dbComment();
+		$result = dbGetPosts();
 		if(isset($result["status"]))
 		{
 			errorHandling("500");
@@ -254,7 +254,7 @@
 				die("User could not be created.");
 				break;
 			case '409':
-				header("HTTP/1.1 500 Bad connection, portal down");
+				header("HTTP/1.1 500 User already exist");
 				die("User already exists.");
 				break;
 			case '411':
