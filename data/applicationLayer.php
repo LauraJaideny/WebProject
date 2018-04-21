@@ -19,8 +19,8 @@
 		case 'LOGOUT':
 			attemptLogout();
 			break;
-		case 'INDEX':
-			attemptIndex();
+		case 'GETSESSION':
+			attemptGetSession();
 			break;
 		case 'COOKIE':
 			 attemptCookie();
@@ -153,7 +153,7 @@
 		echo json_encode(array('success'=>'Session deleted')); 
 	}
 
-	function attemptIndex()
+	function attemptGetSession()
 	{
 		session_start();
 		if(isset($_SESSION["fName"]))

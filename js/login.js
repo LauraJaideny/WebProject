@@ -36,45 +36,9 @@ $(document).ready(function(){
 				ContentType : "application/json",
 				dataType : "json",
 				success : function(dataReceived){	
-					jsonToSend = {
-						"action" : 'LOGOUT'
-					}
-					$.ajax({
-	                    url: "data/applicationLayer.php", //deleteSessionService.php
-	                    type : "POST",
-						data : jsonToSend,
-						ContentType : "application/json",
-						dataType : "json",
-	                    success: function(dataReceived){
-	                        alert(dataReceived.success);
-	                    },
-	                    error: function(errorMessage){
-	                        alert(errorMessage.statusText);
-	                    }
-	                });
-
-					var json = {
-								"username" : username,
-								"password" : password,
-								"action" : 'STARTSESSION'
-							 };
-					
-	                $.ajax({
-	                    type: "POST",
-	                    url: "./data/applicationLayer.php", //startSessionService.php
-	                    data : json,
-	                    dataType : "json",
-	                    ContentType : "application/json",
-	                    success: function(dataReceived){
-	                        alert(dataReceived.success);
-	                    },
-	                    error: function(errorMessage){
-	                        alert(errorMessage.statusText);
-	                    }
-	                }); 
-	                
-					alert("Welcome back " + dataReceived.username);
-					window.location.replace("./index.html");
+					alert("Welcome back " + dataReceived.firstname
+									+ " " + dataReceived.lastname);
+					window.location.replace("index.html");
 				},
 				error : function(errorMessage){
 					alert(errorMessage.statusText);
