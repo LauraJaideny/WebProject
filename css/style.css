@@ -38,17 +38,16 @@ input[type=text], input[type=password], input[type=email] {
 	padding: 10px 20px;
 	background-color: #32608c;
 	color: #ffffff;
-	float: left;
 }
 
-.card{
-	margin: 25px 25px 25px 25px;
+.card-gal{
+	margin: 20px 20px 20px 20px;
 	width: 18rem;
 	display: inline-block;
 	height: 320px;
 	text-align: center;
+	background-color: #ffffff;
 }
-
 
 .card-img-top{
 	width: 100%;
@@ -57,13 +56,20 @@ input[type=text], input[type=password], input[type=email] {
 }
 
 .card-body-gal{
-	text-align: center;
+	margin-top: 20px;
+	margin-right: 10px;
 	line-height: 0.5;
 }
 
 .card-text-bottom{
 	text-align: right;
 	font-size: 0.8em;
+}
+
+.gallery{
+	margin-left: auto;
+	margin-right:auto;
+	width: 80%;
 }
 
 .modal{
