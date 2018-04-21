@@ -28,6 +28,9 @@
 		case 'GETPOSTS':
 			 attemptGetPosts();
 			 break;
+		case 'GETPOSTSU':
+			 attemptGetPostsU();
+			 break;
 		case 'POST':
 			 attemptPost();
 			 break;
@@ -203,6 +206,22 @@
 	function attemptGetPosts()
 	{
 		$result = dbGetPosts();
+		if(isset($result["status"]))
+		{
+			errorHandling("500");
+		}
+		else
+		{
+			echo json_encode($result);
+		}
+
+	}
+
+	function attemptGetPostsU()
+	{
+		session_start();
+		$uName = $_SESSION["uName"];
+		$result = dbGetPostsU($uName);
 		if(isset($result["status"]))
 		{
 			errorHandling("500");

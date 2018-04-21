@@ -117,6 +117,31 @@
 		}
 	}
 
+	function dbGetPostsU($uName){
+		$connection = connectionToDB();
+		$sql = "SELECT * FROM users JOIN posts ON users.username = posts.username AND users.username = '$uName'";
+	
+		$result = $connection->query($sql);
+
+		$response = array();
+		if ($result->num_rows > 0)
+		{
+	
+			while ($row = $result->fetch_assoc())
+			{
+				$currentRow = array("firstname"=>$row["fName"], "lastname"=>$row["lName"], "comment"=>$row["comment"], "postDate"=>$row["postDate"]);
+				array_push($response, $currentRow);
+			}
+
+			
+			return $response;
+		}
+		else
+		{
+			return array("status" => "501");
+		}
+	}
+
 	function dbPost($comment, $uName)
 	{
 		$connection = connectionToDB();
