@@ -21,6 +21,13 @@ input[type=text], input[type=password], input[type=email] {
     border-radius: 4px;
     box-sizing: border-box;
 }
+.reply{
+	font-size:13px !important;
+}
+
+.reply h6{
+	font-size:13px !important;
+}
 
 .logBut{
 	width:40%;

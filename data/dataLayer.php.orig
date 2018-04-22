@@ -228,7 +228,7 @@
 			}
 	}
 
-
+<<<<<<< HEAD
 	function dbAddFavorite($uName, $idPost) {
 		$connection = connectionToDB();
 
@@ -263,7 +263,7 @@
 		else {
 			return array("status" => "413");
 		}
-
+=======
 	function dbDelete($idPost)
 	{
 		$connection = connectionToDB();
@@ -280,7 +280,7 @@
 			{
 				return array("status" => "409");
 			}
-
+>>>>>>> fa27593ff195f21621f0de80a78350b89c272080
 	}
 
 ?>

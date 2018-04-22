@@ -40,7 +40,36 @@
                     $("#posts").empty();
                     for(var i=0;i<dataReceived.length;i++)
                     {
-                        $("#posts").append("<div class='card centered card-post'><div id='idPost' style='display:none;'>"+dataReceived[i].postID+"</div><div class='card-body'></div><div post-content><p class='card-text'>"+dataReceived[i].comment+"</p></div><h6 class='card-subtitle mb-2 text-muted writtenby'>Written by: "+dataReceived[i].firstname+" "+dataReceived[i].lastname+"</h6><div class='buttonGroup float-left'><button type='button' class='btn btn-light'>Comentar</button><button type='button' class='btn btn-light fav-btn' data-toggle='button' aria-pressed='false' autocomplete='off'>Favorite</button></div></div></div>");
+                        $("#posts").append("<div class='card centered card-post' id='postCard"+dataReceived[i].postID+"'><div id='idPost' style='display:none;'>"+dataReceived[i].postID+"</div><div class='card-body'></div><div post-content><p class='card-text'>"+dataReceived[i].comment+"</p></div><h6 class='card-subtitle mb-2 text-muted writtenby'>Written by: "+dataReceived[i].firstname+" "+dataReceived[i].lastname+"</h6><div class='buttonGroup float-left'><button type='button' class='btn btn-light'>Comentar</button><button type='button' class='btn btn-light fav-btn' data-toggle='button' aria-pressed='false' autocomplete='off'>Favorite</button></div></div></div>");
+                        console.log(dataReceived);
+                        getReplies(dataReceived[i].postID);
+                    }
+                },
+                error : function(errorMessage){
+                    //alert(errorMessage.statusText);
+                    console.log(errorMessage);
+                    console.log("Error getting posts");
+                    //window.location.replace("index.html");
+                }
+
+            });
+}
+
+function getReplies(idPost)
+{
+    var jsonToSend = {"action" : 'GETREPLIES',
+                        "idPost" : idPost };
+    console.log("getReplies");
+        $.ajax({
+                url : "data/applicationLayer.php",
+                type : "POST",
+                dataType : "json",
+                data : jsonToSend,
+                ContentType : "application/json",
+                success : function(dataReceived){
+                    for(var i=0;i<dataReceived.length;i++)
+                    {
+                        $("#postCard"+idPost).append("<div class='card-body reply'><p class='card-text'>"+dataReceived[i].reply+"</p><h6 class='card-subtitle mb-2 text-muted writtenby'>Written by: "+dataReceived[i].firstname+" "+dataReceived[i].lastname+"</h6></div>");
                         console.log(dataReceived);
                     }
                 },

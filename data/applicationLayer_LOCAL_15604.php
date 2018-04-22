@@ -28,9 +28,6 @@
 		case 'GETPOSTS':
 			 attemptGetPosts();
 			 break;
-		case 'GETREPLIES':
-			 attemptGetReplies();
-			 break;
 		case 'GETGALLERY':
 			 attemptGetGallery();
 			 break;
@@ -42,9 +39,6 @@
 			 break;
 		case 'EDIT':
 			 attemptEdit();
-			 break;
-		case 'DELETEP':
-			 attemptDelete();
 			 break;
 		case 'STARTSESSION':
 			attemptStartSession();
@@ -235,21 +229,6 @@
 
 	}
 
-	function attemptGetReplies()
-	{
-		$idPost = $_POST["idPost"];
-		$result = dbGetReplies($idPost);
-		if(isset($result["status"]))
-		{
-			errorHandling("500");
-		}
-		else
-		{
-			echo json_encode($result);
-		}
-
-	}
-
 	function attemptGetPostsU()
 	{
 		session_start();
@@ -319,7 +298,6 @@
 		}
 	}
 
-
 	function attemptFavorite(){
 		session_start();
 		$uName = $_SESSION["uName"];
@@ -346,22 +324,6 @@
 		}
 		else {
 			echo json_encode($result);
-
-	function attemptDelete()
-	{
-		$idPost = $_POST["idPost"];
-
-		$result = dbDelete($idPost);
-
-		if($result["status"] == "SUCCESS")
-		{
-			
-			echo json_encode($result);
-		}
-		else
-		{
-			errorHandling($result["status"]);
-
 		}
 	}
 

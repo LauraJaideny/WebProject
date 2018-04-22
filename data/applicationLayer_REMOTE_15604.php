@@ -49,12 +49,6 @@
 		case 'STARTSESSION':
 			attemptStartSession();
 			break;
-		case 'ADDFAVORITE':
-			attemptFavorite();
-			break;
-		case 'GETFAVORITES':
-			attemptGetFavorites();
-			break;
 		default:
 			# code
 			break;
@@ -319,34 +313,6 @@
 		}
 	}
 
-
-	function attemptFavorite(){
-		session_start();
-		$uName = $_SESSION["uName"];
-		$idPost = $_POST["idPost"];
-
-		$result = dbAddFavorite($uName, $idPost);
-
-		if(isset($result["status"])) {
-			errorHandling("500");
-		}
-		else {
-			echo json_encode($result);
-		}
-	}
-
-	function attemptGetFavorites(){
-		session_start();
-		$uName = $_SESSION["uName"];
-
-		$result = dbGetFavorites($uName);
-
-		if(isset($result["status"])) {
-			errorHandling("500");
-		}
-		else {
-			echo json_encode($result);
-
 	function attemptDelete()
 	{
 		$idPost = $_POST["idPost"];
@@ -361,7 +327,6 @@
 		else
 		{
 			errorHandling($result["status"]);
-
 		}
 	}
 
@@ -392,10 +357,6 @@
 			case '411':
 				header("HTTP/1.1 411 Cookie not set yet");
 				die("Cookie not set yet");
-				break;
-			case '413':
-				header("HTTP/1.1 413 Not success received in getting favorites");
-				die("Not success received in getting favorites");
 				break;
 			case '543':
 				header("HTTP/1.1 500 Invalid password ");

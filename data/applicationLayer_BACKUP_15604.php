@@ -319,7 +319,7 @@
 		}
 	}
 
-
+<<<<<<< HEAD
 	function attemptFavorite(){
 		session_start();
 		$uName = $_SESSION["uName"];
@@ -346,7 +346,7 @@
 		}
 		else {
 			echo json_encode($result);
-
+=======
 	function attemptDelete()
 	{
 		$idPost = $_POST["idPost"];
@@ -361,7 +361,7 @@
 		else
 		{
 			errorHandling($result["status"]);
-
+>>>>>>> fa27593ff195f21621f0de80a78350b89c272080
 		}
 	}
 
