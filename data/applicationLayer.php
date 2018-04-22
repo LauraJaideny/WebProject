@@ -40,6 +40,9 @@
 		case 'EDIT':
 			 attemptEdit();
 			 break;
+		case 'DELETEP':
+			 attemptDelete();
+			 break;
 		case 'STARTSESSION':
 			attemptStartSession();
 			break;
@@ -289,6 +292,23 @@
 		else
 		{
 			errorHandling("500");
+		}
+	}
+
+	function attemptDelete()
+	{
+		$idPost = $_POST["idPost"];
+
+		$result = dbDelete($idPost);
+
+		if($result["status"] == "SUCCESS")
+		{
+			
+			echo json_encode($result);
+		}
+		else
+		{
+			errorHandling($result["status"]);
 		}
 	}
 

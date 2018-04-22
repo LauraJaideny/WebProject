@@ -203,4 +203,22 @@
 			}
 	}
 
+	function dbDelete($idPost)
+	{
+		$connection = connectionToDB();
+
+
+		$sql2 = "DELETE FROM posts WHERE postID = '$idPost'";
+
+			if(mysqli_query($connection, $sql2))
+				{
+					$response = array("status" => "SUCCESS");
+					return $response;
+				}
+			else
+			{
+				return array("status" => "409");
+			}
+	}
+
 ?>
