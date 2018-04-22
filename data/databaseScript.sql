@@ -52,5 +52,7 @@ INSERT INTO Posts(username, comment, postDate)
 VALUES  ('AdrianP94', 'TERCER POST', CURRENT_DATE());
 
 INSERT INTO Posts(username, comment, postDate)
-VALUES  ('AdrianP94', 'CUARTO POST', CURRENT_DATE());*/
+VALUES  ('AdrianP94', 'CUARTO POST', CURRENT_DATE());
 
+INSERT INTO `replies` (`replyID`, `username`, `postID`, `reply`) VALUES (NULL, 'AdrianP94', '1', 'ESTE ES UN REPLY :)');
+*/

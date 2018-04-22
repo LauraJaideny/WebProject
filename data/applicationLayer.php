@@ -28,6 +28,9 @@
 		case 'GETPOSTS':
 			 attemptGetPosts();
 			 break;
+		case 'GETREPLIES':
+			 attemptGetReplies();
+			 break;
 		case 'GETGALLERY':
 			 attemptGetGallery();
 			 break;
@@ -215,6 +218,21 @@
 	function attemptGetPosts()
 	{
 		$result = dbGetPosts();
+		if(isset($result["status"]))
+		{
+			errorHandling("500");
+		}
+		else
+		{
+			echo json_encode($result);
+		}
+
+	}
+
+	function attemptGetReplies()
+	{
+		$idPost = $_POST["idPost"];
+		$result = dbGetReplies($idPost);
 		if(isset($result["status"]))
 		{
 			errorHandling("500");
