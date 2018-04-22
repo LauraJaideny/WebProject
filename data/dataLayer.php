@@ -263,6 +263,7 @@
 		else {
 			return array("status" => "413");
 		}
+	}
 
 	function dbDelete($idPost)
 	{

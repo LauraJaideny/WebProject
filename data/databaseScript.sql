@@ -42,6 +42,15 @@ CREATE TABLE Images (
     FOREIGN KEY (username) REFERENCES Users(username)
 );
 
+CREATE TABLE Favorites (
+    favoriteID int NOT NULL AUTO_INCREMENT,
+    username VARCHAR(50),
+    postID int,
+    PRIMARY KEY (favoriteID),
+    FOREIGN KEY (username) REFERENCES Users(username),
+    FOREIGN KEY (postID) REFERENCES Posts(postID)
+);
+
 /* INSERT INTO Posts(username, comment, postDate)
 VALUES  ('AdrianP94', 'HOLA SOY EL PRIMER POST XD', CURRENT_DATE());
 

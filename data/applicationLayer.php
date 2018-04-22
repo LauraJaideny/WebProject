@@ -346,6 +346,8 @@
 		}
 		else {
 			echo json_encode($result);
+		}
+	}
 
 	function attemptDelete()
 	{
