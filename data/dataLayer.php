@@ -203,4 +203,40 @@
 			}
 	}
 
+	function dbAddFavorite($uName, $idPost) {
+		$connection = connectionToDB();
+
+		$sql = "INSERT INTO Favorites (usename, postID) VALUES ('$uname', '$idPost')";
+
+		if(mysqli_query($connection, $sql)){
+			$response = array("status" => "SUCCESS");
+			return $response;
+		}
+		else {
+			return array("status" => "500");
+		}
+	}
+
+	function dbGetFavorites($uName) {
+		$connection = connectionToDB();
+
+		$sql = "SELECT * FROM favorites f join posts p ON f.postID = p.postID join users u ON f.username = u.username WHERE u.username = '$uName'";
+	
+		$result = $connection->query($sql);
+
+		$response = array();
+
+		if ($result->num_rows > 0) {
+	
+			while ($row = $result->fetch_assoc()) {
+				$currentRow = array("firstname"=>$row["fName"], "lastname"=>$row["lName"], "comment"=>$row["comment"], "postDate"=>$row["postDate"], "postID" =>$row["postID"]);
+				array_push($response, $currentRow);
+			}	
+			return $response;
+		}
+		else {
+			return array("status" => "413");
+		}
+	}
+
 ?>

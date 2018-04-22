@@ -1,9 +1,31 @@
  $(document).ready(function() {
 
     getPosts();
-          
+
+    $(".btn btn-light fav-btn").on("click", addFavorite);          
 
 });
+
+ function addFavorite(){
+    var idPost = $(this).parent().parent().find("#idPost").text();
+    console.log("idPost: " + idPost);
+    var jsonToSend = {"action" : 'ADDFAVORITE',
+                      "idPost" : idPost };
+    $.ajax({
+        url : "data/applicationLayer.php",
+        type : "POST",
+        dataType : "json",
+        data: jsonToSend,
+        ContentType : "application/json",
+        success : function(dataReceived){
+            alert(dataReceived.success);
+        },
+        error : function(errorMessage){
+            //alert(errorMessage.statusText);
+            console.log("fail in adding favorite");
+        }
+    })
+ }
 
  function getPosts(){
     var jsonToSend = {"action" : 'GETPOSTS' };
