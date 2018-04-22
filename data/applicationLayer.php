@@ -34,6 +34,9 @@
 		case 'POST':
 			 attemptPost();
 			 break;
+		case 'EDIT':
+			 attemptEdit();
+			 break;
 		case 'STARTSESSION':
 			attemptStartSession();
 			break;
@@ -240,6 +243,26 @@
 		$comment = $_POST["comment"];
 
 		$result = dbPost($comment, $uName);
+
+		if($result["status"] == "SUCCESS")
+		{
+			
+			echo json_encode($result);
+		}
+		else
+		{
+			errorHandling("500");
+		}
+	}
+
+	function attemptEdit()
+	{
+		session_start();
+		$uName = $_SESSION["uName"];
+		$comment = $_POST["comment"];
+		$idPost = $_POST["idPost"];
+
+		$result = dbUpdate($comment, $idPost);
 
 		if($result["status"] == "SUCCESS")
 		{

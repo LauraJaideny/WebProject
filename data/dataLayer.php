@@ -129,7 +129,7 @@
 	
 			while ($row = $result->fetch_assoc())
 			{
-				$currentRow = array("firstname"=>$row["fName"], "lastname"=>$row["lName"], "comment"=>$row["comment"], "postDate"=>$row["postDate"]);
+				$currentRow = array("firstname"=>$row["fName"], "lastname"=>$row["lName"], "comment"=>$row["comment"], "postDate"=>$row["postDate"], "postID" =>$row["postID"]);
 				array_push($response, $currentRow);
 			}
 
@@ -148,6 +148,24 @@
 
 
 		$sql2 = "INSERT INTO Posts (comment, username, postDATE) VALUES ('$comment', '$uName', CURRENT_DATE())";
+
+			if(mysqli_query($connection, $sql2))
+				{
+					$response = array("status" => "SUCCESS");
+					return $response;
+				}
+			else
+			{
+				return array("status" => "500");
+			}
+	}
+
+	function dbUpdate($comment, $idPost)
+	{
+		$connection = connectionToDB();
+
+
+		$sql2 = "UPDATE posts SET comment = '$comment' WHERE posts.postID = '$idPost'";
 
 			if(mysqli_query($connection, $sql2))
 				{
