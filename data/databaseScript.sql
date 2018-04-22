@@ -33,6 +33,15 @@ CREATE TABLE Replies (
     FOREIGN KEY (postID) REFERENCES Posts(postID)
 );
 
+CREATE TABLE Images (
+    imageId int NOT NULL AUTO_INCREMENT,
+    username VARCHAR(50),
+    image longblob,
+    postDate DATE,
+    PRIMARY KEY (imageID),
+    FOREIGN KEY (username) REFERENCES Users(username)
+);
+
 /* INSERT INTO Posts(username, comment, postDate)
 VALUES  ('AdrianP94', 'HOLA SOY EL PRIMER POST XD', CURRENT_DATE());
 
