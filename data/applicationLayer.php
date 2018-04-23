@@ -28,6 +28,9 @@
 		case 'GETPOSTS':
 			 attemptGetPosts();
 			 break;
+		case 'GETPOSTSDATE':
+			 attemptGetPostsDate();
+			 break;
 		case 'GETREPLIES':
 			 attemptGetReplies();
 			 break;
@@ -230,6 +233,21 @@
 	function attemptGetPosts()
 	{
 		$result = dbGetPosts();
+		if(isset($result["status"]))
+		{
+			errorHandling("500");
+		}
+		else
+		{
+			echo json_encode($result);
+		}
+
+	}
+
+	function attemptGetPostsDate()
+	{
+		$date = $_POST["date"];
+		$result = dbGetPostsDate($date);
 		if(isset($result["status"]))
 		{
 			errorHandling("500");

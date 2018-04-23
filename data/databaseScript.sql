@@ -30,7 +30,7 @@ CREATE TABLE Replies (
     reply VARCHAR(2000),
     PRIMARY KEY (replyID),
     FOREIGN KEY (username) REFERENCES Users(username),
-    FOREIGN KEY (postID) REFERENCES Posts(postID)
+    FOREIGN KEY (postID) REFERENCES Posts(postID) ON DELETE CASCADE
 );
 
 CREATE TABLE Images (
