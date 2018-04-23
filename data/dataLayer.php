@@ -232,14 +232,25 @@
 	function dbAddFavorite($uName, $idPost) {
 		$connection = connectionToDB();
 
-		$sql = "INSERT INTO Favorites (usename, postID) VALUES ('$uname', '$idPost')";
+		$sql2 = "SELECT * FROM Favorites WHERE postID = '$idPost' AND username = '$uName'";
 
-		if(mysqli_query($connection, $sql)){
-			$response = array("status" => "SUCCESS");
-			return $response;
+		$result = $connection->query($sql2);
+
+		if ($result->num_rows > 0) {
+			return array("status" => "415");
 		}
+
 		else {
-			return array("status" => "500");
+
+			$sql = "INSERT INTO Favorites (username, postID) VALUES ('$uName', '$idPost')";
+
+			if(mysqli_query($connection, $sql)){
+				$response = array("status" => "SUCCESS");
+				return $response;
+			}
+			else {
+				return array("status" => "500");
+			}
 		}
 	}
 
@@ -263,6 +274,22 @@
 		else {
 			return array("status" => "413");
 		}
+	}
+
+	function dbDeleteFavorite($idPost){
+		$connection = connectionToDB();
+
+		$sql = "DELETE FROM Favorites WHERE postID = '$idPost'";
+
+			if(mysqli_query($connection, $sql))
+				{
+					$response = array("status" => "SUCCESS");
+					return $response;
+				}
+			else
+			{
+				return array("status" => "414");
+			}
 	}
 
 	function dbDelete($idPost)

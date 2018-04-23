@@ -55,6 +55,9 @@
 		case 'GETFAVORITES':
 			attemptGetFavorites();
 			break;
+		case 'DELETEFAVORITE';
+			attemptDeleteFavorite();
+			break;
 		default:
 			# code
 			break;
@@ -327,11 +330,11 @@
 
 		$result = dbAddFavorite($uName, $idPost);
 
-		if(isset($result["status"])) {
-			errorHandling("500");
+		if($result["status"] == 'SUCCESS') {
+			echo json_encode(array('success'=>'Favorite added'));
 		}
 		else {
-			echo json_encode($result);
+			errorHandling($result["status"]);
 		}
 	}
 
@@ -346,6 +349,21 @@
 		}
 		else {
 			echo json_encode($result);
+		}
+	}
+
+	function attemptDeleteFavorite(){
+		$idPost = $_POST["idPost"];
+
+		$result = dbDeleteFavorite($idPost);
+
+		if($result["status"] == "SUCCESS") {
+			
+			echo json_encode($result);
+		}
+		else {
+			errorHandling($result["status"]);
+
 		}
 	}
 
@@ -398,6 +416,14 @@
 			case '413':
 				header("HTTP/1.1 413 Not success received in getting favorites");
 				die("Not success received in getting favorites");
+				break;
+			case '414':
+				header("HTTP/1.1 414 Not success in deleting from favorites");
+				die("Not success in deleting from favorites");
+				break;
+			case '415':
+				header("HTTP/1.1 415 This post was added previously to favorites");
+				die("This post was added previously to favorites");
 				break;
 			case '543':
 				header("HTTP/1.1 500 Invalid password ");
