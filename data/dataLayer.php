@@ -8,7 +8,7 @@
 		# Database credentials
 		$servername = "localhost";
 		$username = "root";
-		$password = "root";
+		$password = "";
 		$dbname = "LauraAdrian";
 
 		$conn = new mysqli($servername, $username, $password, $dbname);
@@ -119,8 +119,8 @@
 
 	function dbGetReplies($idPost){
 		$connection = connectionToDB();
-		$sql = "SELECT * FROM replies JOIN users ON replies.username = users.username AND replies.postID = '$idPost'";
-	
+		$sql = "SELECT * FROM replies JOIN users ON replies.username = users.username AND replies.postID = '$idPost' ORDER BY replies.replyID";
+
 		$result = $connection->query($sql);
 
 		$response = array();
@@ -207,6 +207,24 @@
 			else
 			{
 				return array("status" => "500");
+			}
+	}
+
+	function dbAddReply($reply, $idPost, $uName)
+	{
+		$connection = connectionToDB();
+
+
+		$sql2 = "INSERT INTO Replies (reply, username, postID) VALUES ('$reply', '$uName', '$idPost')";
+
+			if(mysqli_query($connection, $sql2))
+				{
+					$response = array("status" => "SUCCESS");
+					return $response;
+				}
+			else
+			{
+				return array("status" => "413");
 			}
 	}
 

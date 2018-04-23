@@ -31,6 +31,9 @@
 		case 'GETREPLIES':
 			 attemptGetReplies();
 			 break;
+		case 'ADDREPLY':
+			 attemptAddReply();
+			 break;
 		case 'GETGALLERY':
 			 attemptGetGallery();
 			 break;
@@ -310,6 +313,26 @@
 		$idPost = $_POST["idPost"];
 
 		$result = dbUpdate($comment, $idPost);
+
+		if($result["status"] == "SUCCESS")
+		{
+			
+			echo json_encode($result);
+		}
+		else
+		{
+			errorHandling("500");
+		}
+	}
+
+	function attemptAddReply()
+	{
+		session_start();
+		$uName = $_SESSION["uName"];
+		$reply = $_POST["reply"];
+		$idPost = $_POST["idPost"];
+
+		$result = dbAddReply($reply, $idPost, $uName);
 
 		if($result["status"] == "SUCCESS")
 		{
