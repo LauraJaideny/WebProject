@@ -61,8 +61,11 @@
 		case 'GETFAVORITES':
 			attemptGetFavorites();
 			break;
-		case 'DELETEFAVORITE';
+		case 'DELETEFAVORITE':
 			attemptDeleteFavorite();
+			break;
+		case 'UPLOADIMAGE':
+			attemptUploadImage();
 			break;
 		default:
 			# code
@@ -426,6 +429,48 @@
 		}
 	}
 
+	function attemptUploadImage(){
+
+		session_start();
+		$uName = $_SESSION["uName"];
+
+		if(isset($_FILES["file"]["type"]))
+		{
+			$validextensions = array("jpeg", "jpg", "png");
+			$temporary = explode(".", $_FILES["file"]["name"]);
+			$file_extension = end($temporary);
+			if ((($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpg") || ($_FILES["file"]["type"] == "image/jpeg")) && in_array($file_extension, $validextensions)) {
+				if ($_FILES["file"]["error"] > 0)
+				{
+					echo "Return Code: " . $_FILES["file"]["error"] ;
+				}
+				else
+				{
+					if (file_exists("upload/" . $_FILES["file"]["name"])) {
+						echo json_encode($_FILES["file"]["name"] . " already exists");
+					}
+					else
+					{
+						$sourcePath = $_FILES['file']['tmp_name']; // Storing source path of the file in a variable
+						$imageName = $_FILES["file"]["name"];
+
+						$result = dbUploadImage($username, $imageName);
+
+						$targetPath = "images/".$_FILES['file']['name']; // Target path where file is to be stored
+						move_uploaded_file($sourcePath,$targetPath) ; // Moving Uploaded file
+						echo json_encode($result["status"]);
+					}
+				}
+			}
+			else
+			{
+			errorHandling("417");
+			}
+		}
+
+
+	}
+
 	# If an error happens during a login.
 	function errorHandling($errorCode)
 	{
@@ -465,6 +510,14 @@
 			case '415':
 				header("HTTP/1.1 415 This post was added previously to favorites");
 				die("This post was added previously to favorites");
+				break;
+			case '416':
+				header("HTTP/1.1 416 Not images to be loaded");
+				die("Not images to be loaded");
+				break;
+			case '417':
+				header("HTTP/1.1 417 The image could not be uploaded");
+				die("The image could not be uploaded");
 				break;
 			case '543':
 				header("HTTP/1.1 500 Invalid password ");

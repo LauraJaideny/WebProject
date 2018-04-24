@@ -36,7 +36,7 @@ CREATE TABLE Replies (
 CREATE TABLE Images (
     imageId int NOT NULL AUTO_INCREMENT,
     username VARCHAR(50),
-    image longblob,
+    image VARCHAR(50),
     postDate DATE,
     PRIMARY KEY (imageID),
     FOREIGN KEY (username) REFERENCES Users(username)
@@ -51,7 +51,11 @@ CREATE TABLE Favorites (
     FOREIGN KEY (postID) REFERENCES Posts(postID)
 );
 
-/* INSERT INTO Posts(username, comment, postDate)
+/* 
+INSERT INTO Images(username, image, postDate)
+VALUES ('laura04', 'images/cover.jpg', CURRENT_DATE());
+
+INSERT INTO Posts(username, comment, postDate)
 VALUES  ('AdrianP94', 'HOLA SOY EL PRIMER POST XD', CURRENT_DATE());
 
 INSERT INTO Posts(username, comment, postDate)

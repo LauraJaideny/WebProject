@@ -188,7 +188,7 @@
 		}
 		else
 		{
-			return array("status" => "501");
+			return array("status" => "416");
 		}
 	}
 
@@ -352,6 +352,22 @@
 				return array("status" => "409");
 			}
 
+	}
+
+	function dbUploadImage($username, $imageName) {
+		$connection = connectionToDB();
+
+		$sql = "INSERT INTO Images (username, image, postDate) VALUES ('$username', 'images/$imageName', CURRENT_DATE())";
+
+			if(mysqli_query($connection, $sql))
+				{
+					$response = array("status" => "SUCCESS");
+					return $response;
+				}
+			else
+			{
+				return array("status" => "416");
+			}
 	}
 
 ?>
