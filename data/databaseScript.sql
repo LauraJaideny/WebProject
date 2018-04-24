@@ -38,7 +38,7 @@ CREATE TABLE Images (
     username VARCHAR(50),
     image VARCHAR(50),
     postDate DATE,
-    PRIMARY KEY (imageID),
+    PRIMARY KEY (imageId),
     FOREIGN KEY (username) REFERENCES Users(username)
 );
 
@@ -49,6 +49,17 @@ CREATE TABLE Favorites (
     PRIMARY KEY (favoriteID),
     FOREIGN KEY (username) REFERENCES Users(username),
     FOREIGN KEY (postID) REFERENCES Posts(postID)
+    ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE FavoriteImages (
+    favoriteID int NOT NULL AUTO_INCREMENT,
+    username VARCHAR(50),
+    imageId int,
+    PRIMARY KEY (favoriteID),
+    FOREIGN KEY (username) REFERENCES Users(username),
+    FOREIGN KEY (imageId) REFERENCES Images(imageId)
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 /* 

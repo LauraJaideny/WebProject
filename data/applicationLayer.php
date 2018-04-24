@@ -73,6 +73,14 @@
 		case 'DELETEIMAGE':
 			attemptDeleteImage();
 			break;
+		case 'GETFAVORITEIMAGES':
+			attemptGetFavoriteImages();
+			break;
+		case 'ADDFAVORITEIMAGE':
+			attemptAddFavoriteImage();
+			break;
+		case 'DELETEFAVORITEIMAGE':
+			attemptDeleteFavoriteImage();
 		default:
 			# code
 			break;
@@ -502,6 +510,50 @@
 		}
 		else
 		{
+			errorHandling($result["status"]);
+
+		}
+	}
+
+	function attemptGetFavoriteImages(){
+		session_start();
+		$uName = $_SESSION["uName"];
+
+		$result = dbGetFavoriteImages($uName);
+
+		if(isset($result["status"])) {
+			errorHandling($result["status"]);
+		}
+		else {
+			echo json_encode($result);
+		}
+	}
+
+	function attemptAddFavoriteImage(){
+		session_start();
+		$uName = $_SESSION["uName"];
+		$idImage = $_POST["idImage"];
+
+		$result = dbAddFavoriteImage($uName, $idImage);
+
+		if($result["status"] == 'SUCCESS') {
+			echo json_encode(array('success'=>'Favorite added'));
+		}
+		else {
+			errorHandling($result["status"]);
+		}
+	}
+
+	function attemptDeleteFavoriteImage(){
+		$idImage = $_POST["idImage"];
+
+		$result = dbDeleteFavoriteImage($idImage);
+
+		if($result["status"] == "SUCCESS") {
+			
+			echo json_encode($result);
+		}
+		else {
 			errorHandling($result["status"]);
 
 		}

@@ -179,7 +179,7 @@
 	
 			while ($row = $result->fetch_assoc())
 			{
-				$currentRow = array("firstname"=>$row["fName"], "lastname"=>$row["lName"], "postDate"=>$row["postDate"], "image" => $row["image"]);
+				$currentRow = array("firstname"=>$row["fName"], "lastname"=>$row["lName"], "postDate"=>$row["postDate"], "image" => $row["image"], "imageID"=>$row["imageId"]);
 				array_push($response, $currentRow);
 			}
 
@@ -412,6 +412,69 @@
 				return array("status" => "409");
 			}
 
+	}
+
+	function dbGetFavoriteImages($uName) {
+		$connection = connectionToDB();
+
+		$sql = "SELECT * FROM favoriteimages f join images i ON f.imageId = i.imageId join users u ON f.username = i.username WHERE u.username = '$uName'";
+	
+		$result = $connection->query($sql);
+
+		$response = array();
+
+		if ($result->num_rows > 0) {
+	
+			while ($row = $result->fetch_assoc()) {
+				$currentRow = array("firstname"=>$row["fName"], "lastname"=>$row["lName"], "image"=>$row["image"], "postDate"=>$row["postDate"], "imageID" =>$row["imageId"]);
+				array_push($response, $currentRow);
+			}	
+			return $response;
+		}
+		else {
+			return array("status" => "413");
+		}
+	}
+
+	function dbAddFavoriteImage($uName, $idImage){
+		$connection = connectionToDB();
+
+		$sql2 = "SELECT * FROM FavoriteImages WHERE imageId = '$idImage' AND username = '$uName'";
+
+		$result = $connection->query($sql2);
+
+		if ($result->num_rows > 0) {
+			return array("status" => "415");
+		}
+
+		else {
+
+			$sql = "INSERT INTO FavoriteImages (username, imageId) VALUES ('$uName', '$idImage')";
+
+			if(mysqli_query($connection, $sql)){
+				$response = array("status" => "SUCCESS");
+				return $response;
+			}
+			else {
+				return array("status" => "500");
+			}
+		}
+	}
+
+	function dbDeleteFavoriteImage($idImage){
+		$connection = connectionToDB();
+
+		$sql = "DELETE FROM FavoriteImages WHERE imageId = '$idImage'";
+
+			if(mysqli_query($connection, $sql))
+				{
+					$response = array("status" => "SUCCESS");
+					return $response;
+				}
+			else
+			{
+				return array("status" => "414");
+			}
 	}
 
 ?>
