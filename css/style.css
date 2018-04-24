@@ -47,6 +47,13 @@ input[type=text], input[type=password], input[type=email] {
 	color: #ffffff;
 }
 
+.delete{
+	width:40%;
+	padding: 10px 20px;
+	background-color: #ff5a44;
+	color: #ffffff;
+}
+
 .card-gal{
 	margin: 20px 20px 20px 20px;
 	width: 18rem;

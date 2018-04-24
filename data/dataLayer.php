@@ -370,4 +370,48 @@
 			}
 	}
 
+	function dbGetImagesU($uName){
+		$connection = connectionToDB();
+		$sql = "SELECT * FROM users JOIN images ON users.username = images.username AND users.username = '$uName'";
+	
+		$result = $connection->query($sql);
+
+		$response = array();
+		if ($result->num_rows > 0)
+		{
+	
+			while ($row = $result->fetch_assoc())
+			{
+				$currentRow = array("firstname"=>$row["fName"], "lastname"=>$row["lName"], "image"=>$row["image"], "postDate"=>$row["postDate"], "imageID" =>$row["imageId"]);
+				array_push($response, $currentRow);
+			}
+
+			
+			return $response;
+		}
+		else
+		{
+			return array("status" => "501");
+		}
+	}
+
+	function dbDeleteImage($idImage)
+	{
+		$connection = connectionToDB();
+
+
+		$sql2 = "DELETE FROM images WHERE imageId = '$idImage'";
+
+			if(mysqli_query($connection, $sql2))
+				{
+					$response = array("status" => "SUCCESS");
+					return $response;
+				}
+			else
+			{
+				return array("status" => "409");
+			}
+
+	}
+
 ?>

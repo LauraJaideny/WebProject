@@ -67,6 +67,12 @@
 		case 'UPLOADIMAGE':
 			attemptUploadImage();
 			break;
+		case 'GETIMAGESUSER':
+			attemptGetImages();
+			break;
+		case 'DELETEIMAGE':
+			attemptDeleteImage();
+			break;
 		default:
 			# code
 			break;
@@ -467,9 +473,40 @@
 			errorHandling("417");
 			}
 		}
-
-
 	}
+
+
+	function attemptGetImages(){
+		session_start();
+		$uName = $_SESSION["uName"];
+		$result = dbGetImagesU($uName);
+		if(isset($result["status"]))
+		{
+			errorHandling("500");
+		}
+		else
+		{
+			echo json_encode($result);
+		}
+	}
+
+	function attemptDeleteImage(){
+		$idImage = $_POST["idImage"];
+
+		$result = dbDeleteImage($idImage);
+
+		if($result["status"] == "SUCCESS")
+		{
+			
+			echo json_encode($result);
+		}
+		else
+		{
+			errorHandling($result["status"]);
+
+		}
+	}
+
 
 	# If an error happens during a login.
 	function errorHandling($errorCode)
