@@ -6,7 +6,8 @@
     $("#posts").on("click", "#favoritePost", addFavorite);          
 
     $("#posts").on("click","#commentPost", function(){
-        idOfPost = $(this).parent().parent().find("#idPost").text();
+        console.log($(this).parent().parent().parent().find("#idPost").text());
+        idOfPost = $(this).parent().parent().parent().find("#idPost").text();
     });  
 
     $("#commentPostText").on("click", function(){
@@ -53,7 +54,7 @@
  function getPosts(){
     var jsonToSend = {"action" : 'GETPOSTS' };
     console.log("getPosts");
-    $("#posts").empty();
+   $("#posts").empty();
         $.ajax({
                 url : "data/applicationLayer.php",
                 type : "POST",
@@ -64,7 +65,7 @@
                     for(var i=0;i<dataReceived.length;i++)
                     {
 
-                        $("#posts").append("<div class='card centered card-post' id='postCard"+dataReceived[i].postID+"'><div id='idPost' style='display:none;'>"+dataReceived[i].postID+"</div><div class='card-body'></div><div post-content><p class='card-text'>"+dataReceived[i].comment+"</p></div><h6 class='card-subtitle mb-2 text-muted writtenby'>Written by: "+dataReceived[i].firstname+" "+dataReceived[i].lastname+"</h6><div class='buttonGroup float-left'><button type='button' class='btn btn-light' id='commentPost' data-toggle='modal' data-target='#exampleModal'>Comentar</button><button type='button' id='favoritePost' class='btn btn-light fav-btn' data-toggle='button' aria-pressed='false' autocomplete='off'>Favorite</button></div></div></div>");
+                        $("#posts").append("<div class='card centered card-post' id='postCard"+dataReceived[i].postID+"'><div id='idPost' style='display:none;'>"+dataReceived[i].postID+"</div><div class='card-body'><div post-content><p class='card-text'>"+dataReceived[i].comment+"</p></div><h6 class='card-subtitle mb-2 text-muted writtenby'>Written by: "+dataReceived[i].firstname+" "+dataReceived[i].lastname+"</h6><div class='buttonGroup float-left'><button type='button' class='btn btn-light' id='commentPost' data-toggle='modal' data-target='#exampleModal'>Comentar</button><button type='button' id='favoritePost' class='btn btn-light fav-btn'>Favorite</button></div></div></div>");
                         //console.log(dataReceived);
                         getReplies(dataReceived[i].postID);
                     }
@@ -93,7 +94,7 @@ function getPostsDate(){
                 success : function(dataReceived){
                     for(var i=0;i<dataReceived.length;i++)
                     {
-                        $("#posts").append("<div class='card centered card-post' id='postCard"+dataReceived[i].postID+"'><div id='idPost' style='display:none;'>"+dataReceived[i].postID+"</div><div class='card-body'></div><div post-content><p class='card-text'>"+dataReceived[i].comment+"</p></div><h6 class='card-subtitle mb-2 text-muted writtenby'>Written by: "+dataReceived[i].firstname+" "+dataReceived[i].lastname+"</h6><div class='buttonGroup float-left'><button type='button' class='btn btn-light' id='commentPost' data-toggle='modal' data-target='#exampleModal'>Comentar</button><button type='button' id='favoritePost' class='btn btn-light fav-btn' data-toggle='button' aria-pressed='false' autocomplete='off'>Favorite</button></div></div></div>");
+                        $("#posts").append("<div class='card centered card-post' id='postCard"+dataReceived[i].postID+"'><div id='idPost' style='display:none;'>"+dataReceived[i].postID+"</div><div class='card-body'></div><div post-content><p class='card-text'>"+dataReceived[i].comment+"</p></div><h6 class='card-subtitle mb-2 text-muted writtenby'>Written by: "+dataReceived[i].firstname+" "+dataReceived[i].lastname+"</h6><div class='buttonGroup float-left'><button type='button' class='btn btn-light' id='commentPost' data-toggle='modal' data-target='#exampleModal'>Comentar</button><button type='button' id='favoritePost' class='btn btn-light fav-btn'>Favorite</button></div></div></div>");
                         //console.log(dataReceived);
                         getReplies(dataReceived[i].postID);
                     }
@@ -122,8 +123,8 @@ function getReplies(idPost)
                 success : function(dataReceived){
                     for(var i=0;i<dataReceived.length;i++)
                     {
-                        $("#postCard"+idPost).append("<div class='card-body reply'><p class='card-text'>"+dataReceived[i].reply+"</p><h6 class='card-subtitle mb-2 text-muted writtenby'>Written by: "+dataReceived[i].firstname+" "+dataReceived[i].lastname+"</h6></div>");
-                        console.log(dataReceived);
+                        $("#postCard"+idPost).append("<hr>");
+                        $("#postCard"+idPost).append("<div class='card-body reply'><p class='card-text'>"+dataReceived[i].reply+" - by "+dataReceived[i].firstname+" "+dataReceived[i].lastname+"</p>");
                     }
                 },
                 error : function(errorMessage){

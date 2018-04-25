@@ -44,6 +44,9 @@ $(document).ready(function(){
 				processData:false,        // To send DOMDocument or non processed data file it is set to false
 				success: function(data) {
 					console.log(data);
+					if (data[2] == "s")
+						alert("Image added succesfully");
+
 				},
 				error: function(error_message) {
 					console.log(error_message);
