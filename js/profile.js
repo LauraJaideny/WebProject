@@ -224,7 +224,7 @@ function editComment(){
                     
                     for(var i=0;i<dataReceived.length;i++)
                     {
-                        $("#posts").append("<div class='card centered card-post'><div id='idPost' style='display:none;'>"+dataReceived[i].postID+"</div><div class='card-body'></div><div post-content><p class='card-text' id='pText'>"+dataReceived[i].comment+"</p></div><h6 class='card-subtitle mb-2 text-muted writtenby'>Written by: "+dataReceived[i].firstname+" "+dataReceived[i].lastname+"</h6><div class='buttonGroup float-left'><button type='button' class='btn btn-light' id='editPost' data-toggle='modal' data-target='#exampleModal2'>Edit post</button><button type='button' class='btn btn-light' id='deletePost'>Delete post</button></div></div></div>");
+                        $("#posts").append("<div class='card centered card-post'>"+dataReceived[i].postDate+"<div id='idPost' style='display:none;'>"+dataReceived[i].postID+"</div><div class='card-body'></div><div post-content><p class='card-text' id='pText'>"+dataReceived[i].comment+"</p></div><h6 class='card-subtitle mb-2 text-muted writtenby'>Written by: "+dataReceived[i].firstname+" "+dataReceived[i].lastname+"</h6><div class='buttonGroup float-left'><button type='button' class='btn btn-light' id='editPost' data-toggle='modal' data-target='#exampleModal2'>Edit post</button><button type='button' class='btn btn-light' id='deletePost'>Delete post</button></div></div></div>");
                         console.log(dataReceived);
                     }
                 },
