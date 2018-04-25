@@ -84,4 +84,13 @@ $(document).ready(function(){
         //window.location.replace("index.html");
     });
 
+    $("#goLog").on("click", function(){
+   		window.location.replace("login.html"); 
+        //window.location.replace("index.html");
+    });
+
+    $("#goReg").on("click", function(){
+   		window.location.replace("register.html");
+    });
+
 });

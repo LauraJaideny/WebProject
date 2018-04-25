@@ -40,6 +40,9 @@
 		case 'GETGALLERY':
 			 attemptGetGallery();
 			 break;
+		case 'GETGALLERYDATE':
+			 attemptGetGalleryDate();
+			 break;
 		case 'GETPOSTSU':
 			 attemptGetPostsU();
 			 break;
@@ -81,6 +84,7 @@
 			break;
 		case 'DELETEFAVORITEIMAGE':
 			attemptDeleteFavoriteImage();
+			break;
 		default:
 			# code
 			break;
@@ -310,6 +314,21 @@
 	function attemptGetGallery()
 	{
 		$result = dbGetGallery();
+		if(isset($result["status"]))
+		{
+			errorHandling("500");
+		}
+		else
+		{
+			echo json_encode($result);
+		}
+
+	}
+
+	function attemptGetGalleryDate()
+	{
+		$date = $_POST["date"];
+		$result = dbGetGalleryDate($date);
 		if(isset($result["status"]))
 		{
 			errorHandling("500");

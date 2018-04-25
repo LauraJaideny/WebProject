@@ -8,7 +8,7 @@
 		# Database credentials
 		$servername = "localhost";
 		$username = "root";
-		$password = "root";
+		$password = "";
 		$dbname = "LauraAdrian";
 
 		$conn = new mysqli($servername, $username, $password, $dbname);
@@ -170,6 +170,31 @@
 	function dbGetGallery(){
 		$connection = connectionToDB();
 		$sql = "SELECT * FROM users JOIN images ON users.username = images.username";
+	
+		$result = $connection->query($sql);
+
+		$response = array();
+		if ($result->num_rows > 0)
+		{
+	
+			while ($row = $result->fetch_assoc())
+			{
+				$currentRow = array("firstname"=>$row["fName"], "lastname"=>$row["lName"], "postDate"=>$row["postDate"], "image" => $row["image"], "imageID"=>$row["imageId"]);
+				array_push($response, $currentRow);
+			}
+
+			
+			return $response;
+		}
+		else
+		{
+			return array("status" => "416");
+		}
+	}
+
+	function dbGetGalleryDate($date){
+		$connection = connectionToDB();
+		$sql = "SELECT * FROM users JOIN images ON users.username = images.username WHERE images.postDate = '$date'";
 	
 		$result = $connection->query($sql);
 
