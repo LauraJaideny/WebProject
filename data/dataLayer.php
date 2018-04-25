@@ -325,7 +325,7 @@
 	function dbGetFavorites($uName) {
 		$connection = connectionToDB();
 
-		$sql = "SELECT * FROM favorites f join posts p ON f.postID = p.postID join users u ON f.username = u.username WHERE u.username = '$uName'";
+		$sql = "SELECT * FROM favorites f join posts p ON f.postID = p.postID join users u ON p.username = u.username WHERE f.username = '$uName'";
 	
 		$result = $connection->query($sql);
 
@@ -442,7 +442,7 @@
 	function dbGetFavoriteImages($uName) {
 		$connection = connectionToDB();
 
-		$sql = "SELECT * FROM favoriteimages f join images i ON f.imageId = i.imageId join users u ON f.username = i.username WHERE u.username = '$uName'";
+		$sql = "SELECT * FROM favoriteimages f join images i ON f.imageId = i.imageId join users u on i.username = u.username WHERE f.username = '$uName'";
 	
 		$result = $connection->query($sql);
 
