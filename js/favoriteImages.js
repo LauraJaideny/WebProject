@@ -13,6 +13,7 @@ $(document).ready(function() {
 function getFavorites(){
 	var jsonToSend = {"action" : 'GETFAVORITEIMAGES' };
     console.log("getFavorites");
+    $("#gallery").empty();
         $.ajax({
                 url : "data/applicationLayer.php",
                 type : "POST",
@@ -20,7 +21,6 @@ function getFavorites(){
                 data : jsonToSend,
                 ContentType : "application/json",
                 success : function(dataReceived){
-                    $("#gallery").empty();
                     for(var i=0;i<dataReceived.length;i++)
                     {
                         $("#gallery").append("<div class='card-gal'><div id='idImage' style='display:none;'>"+dataReceived[i].imageID+"</div><img class='card-img-top' src='" + dataReceived[i].image + " 'alt='Card image cap'><div class='card-body-gal'><p class='card-text-bottom'>" + dataReceived[i].firstname + " " + dataReceived[i].lastname + "</p><p class='card-text-bottom'>" + dataReceived[i].postDate + "</p><input type='button' class='delete btn btn-light' value='Delete' id='deleteFavorite'/></div></div>");
@@ -42,7 +42,6 @@ function deleteFavorite(){
             "action" : "DELETEFAVORITEIMAGE",
             "idImage" : idOfFavorite
         };
-
             $.ajax({
                 type: "POST",
                 url: "data/applicationLayer.php",
